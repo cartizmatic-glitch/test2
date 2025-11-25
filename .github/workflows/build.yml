@@ -12,10 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - name: Set up Flutter SDK
+        uses: flutter-actions/setup-flutter@v3
         with:
-          flutter-version: '3.38.3'   # ← نسخه دقیق پروژه شما
+          flutter-version: '3.38.3'  # نسخه دقیق شما
 
       - name: Cache Flutter packages
         uses: actions/cache@v3
@@ -28,10 +28,13 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Flutter clean
+        run: flutter clean
+
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload Artifact (APK)
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release
